@@ -19,6 +19,10 @@ export type Unit = {|
   showAllDigits?: boolean
 |};
 
+export type FiatUnit = Unit & {|
+  ticker: string
+|};
+
 export type UnitValue = {| value: number, unit: Unit |};
 
 export type BitcoinJS = {|
@@ -38,6 +42,8 @@ export type Currency = {|
   coinType: number,
   // display name of a currency
   name: string,
+  // the ticker name in exchanges / countervalue apis (e.g. BTC)
+  ticker: string,
   // the scheme name to use when formatting an URI (without the ':')
   scheme: string,
   // used for UI
