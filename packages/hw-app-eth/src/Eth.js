@@ -116,8 +116,12 @@ export default class Eth {
     let rawTx = new Buffer(rawTxHex, "hex");
     let toSend = [];
     let response;
+
+    const onlyEip155Left =  (rawTx.length + 1 + paths.length * 4) % 150 === 3;
+    const firstChunkSizeIncrease = onlyEip155Left ? 3 : 0;
+
     while (offset !== rawTx.length) {
-      let maxChunkSize = offset === 0 ? 150 - 1 - paths.length * 4 : 150;
+      let maxChunkSize = offset === 0 ? 150 - 1 - paths.length * 4 + firstChunkSizeIncrease : 150;
       let chunkSize =
         offset + maxChunkSize > rawTx.length
           ? rawTx.length - offset
